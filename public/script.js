@@ -1,3 +1,5 @@
+const DEFAULT_API_BASE = "https://test-production-174c.up.railway.app";
+
 const API_BASE = (() => {
   const params = new URLSearchParams(window.location.search);
   const fromQuery = String(params.get("apiBase") || "").trim();
@@ -12,7 +14,7 @@ const API_BASE = (() => {
     return fromStorage.replace(/\/$/, "");
   }
 
-  return "";
+  return DEFAULT_API_BASE;
 })();
 
 // Fallback list when API is temporarily unavailable.
