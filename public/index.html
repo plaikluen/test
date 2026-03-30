@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2B4171" />
+    <title>Main Event : ปฐมนิเทศ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pridi:wght@300;400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="overlay-open">
+    <div id="intro-overlay" class="intro-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <div class="intro-card">
+        <img class="intro-logo" src="images/Mahoushiki_Logo.png" alt="Mahoushiki Gakuen logo" />
+        <p id="intro-title" class="intro-jp">魔法四季学園</p>
+        <p class="intro-en">Mahoushiki Gakuen</p>
+        <p class="intro-event">Event1: 【 サインハント 】</p>
+        <p class="intro-th">กิจกรรมล่าลายเซ็น</p>
+        <p class="intro-disclaimer">
+          เว็บไซต์นี้ไม่ใช่เว็บไซต์ทางการของคอมมู แต่เป็นเว็บไซต์ส่วนตัวที่ผู้เล่นจัดทำขึ้น เพื่อให้ผู้เล่นทุกคนสามารถร่วมกิจกรรมได้อย่างทั่วถึง หากพบปัญหาในการใช้งาน สามารถแจ้งได้ที่แอคเค้าท์ Bluesky: rin-msg.bsky.social
+        </p>
+        <button id="enter-site-btn" type="button" class="enter-site-btn">เข้าสู่หน้าเว็บ</button>
+      </div>
+    </div>
+    <div class="page-bg"></div>
+    <main class="layout">
+      <header class="hero">
+        <p class="eyebrow">【 サインハント 】</p>
+        <h1>กิจกรรมล่าลายเซ็น<br />สำหรับนักเรียนทุกชั้นปีและบุคลากรในโรงเรียน</h1>
+        <p class="hero-copy">
+          เว็บไซต์สำหรับฝากโพสต์โรลเพลย์และค้นหาเพื่อนร่วมกิจจกรมล่าลายเซ็น<br />
+        </p>
+      </header>
+
+      <section class="panel form-panel">
+        <h2>เพิ่มรายชื่อของตัวเอง</h2>
+        <p class="panel-note">* สามรถกรอกข้อมูบเพื่อให้ผู้เล่นท่านอื่นสามารถค้นหาได้โดยง่าย</p>
+
+        <form id="participant-form" class="participant-form">
+          <label>
+            ชื่อที่ให้คนค้นหา
+            <input id="name" name="name" type="text" placeholder="ชื่อ-นามสกุลภาษาไทย" required />
+          </label>
+
+          <label>
+            รูปภาพ (ไม่บังคับ)
+            <input id="image" name="image" type="file" accept="image/*" />
+          </label>
+
+          <label>
+            ลิงก์แอคเค้าท์บลูสกาย (ไม่บังคับ)
+            <input id="profileLink" name="profileLink" type="url" placeholder="https://bsky.app/profile/..." />
+          </label>
+
+          <label>
+            ลิงก์โพสต์โรลเพลย์ (ไม่บังคับ)
+            <input id="rpPostLink" name="rpPostLink" type="url" placeholder="https://..." />
+          </label>
+
+          <label>
+            รหัสลบโพสต์ของตัวเอง (4-40 ตัวอักษร)
+            <input
+              id="deleteCode"
+              name="deleteCode"
+              type="password"
+              minlength="4"
+              maxlength="40"
+              placeholder="ตั้งไว้เพื่อลบโพสต์ภายหลัง"
+              required
+            />
+          </label>
+
+          <div class="traits-block">
+            <div class="traits-header">
+              <span>โจทย์ในการล่าลายเซ็น</span>
+              <small>ถ้าไม่เจอตัวเลือกที่อยากใช้ สามารถเพิ่มเองได้เลย</small>
+            </div>
+            <div class="trait-create-row">
+              <input
+                id="new-trait-input"
+                type="text"
+                maxlength="40"
+                placeholder="พิมพ์ตัวเลือกใหม่ เช่น คนที่อยู่หอพักฤดูใบไม้ผลิ"
+              />
+              <button id="add-trait-btn" type="button" class="ghost-btn">+ เพิ่มตัวเลือก</button>
+            </div>
+            <p id="trait-message" class="trait-message" aria-live="polite"></p>
+            <div id="traits-options" class="traits-options"></div>
+          </div>
+
+          <button type="submit" class="submit-btn">บันทึกข้อมูล</button>
+          <p id="form-message" class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel search-panel">
+        <h2>ค้นหาเพื่อนร่วมกิจกรรม</h2>
+
+        <div class="search-controls">
+          <label>
+            ค้นหาชื่อ / แท็ก / ลิงก์
+            <input id="search-input" type="text" placeholder="พิมพ์คีย์เวิร์ด..." />
+          </label>
+
+          <label>
+            กรองตามโจทย์ในการล่าลายเซ็น
+            <select id="trait-filter">
+              <option value="">ทั้งหมด</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="category-board" class="category-board"></div>
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <template id="card-template">
+      <article class="person-card">
+        <div class="avatar-wrap">
+          <img class="avatar" alt="participant avatar" />
+          <div class="avatar-placeholder">NO PIC</div>
+        </div>
+        <div class="person-content">
+          <h3 class="person-name"></h3>
+          <div class="person-links"></div>
+          <div class="tag-list"></div>
+          <p class="date"></p>
+          <div class="card-actions"></div>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
