@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: event1-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: DATA_ROOT
+        value: /var/data
+    disks:
+      - name: event1-data
+        mountPath: /var/data
+        sizeGB: 1

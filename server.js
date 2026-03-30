@@ -9,8 +9,9 @@ const crypto = require("crypto");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const dataDir = path.join(__dirname, "data");
-const uploadsDir = path.join(__dirname, "uploads");
+const storageRoot = process.env.DATA_ROOT || process.env.RENDER_DISK_PATH || __dirname;
+const dataDir = path.join(storageRoot, "data");
+const uploadsDir = path.join(storageRoot, "uploads");
 const publicDir = path.join(__dirname, "public");
 
 if (!fs.existsSync(dataDir)) {
@@ -37,7 +38,7 @@ const DEFAULT_TRAITS = [
   "คนที่อยู่หอพักฤดูร้อน"
 ];
 
-const backupsDir = path.join(__dirname, "backups");
+const backupsDir = path.join(storageRoot, "backups");
 const POST_COOLDOWN_MS = 30 * 1000;
 const DAILY_BACKUP_MS = 24 * 60 * 60 * 1000;
 const postCooldownByIp = new Map();

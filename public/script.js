@@ -1,4 +1,19 @@
-const API_BASE = "";
+const API_BASE = (() => {
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = String(params.get("apiBase") || "").trim();
+  const fromStorage = String(localStorage.getItem("event1-api-base") || "").trim();
+
+  if (fromQuery) {
+    localStorage.setItem("event1-api-base", fromQuery);
+    return fromQuery.replace(/\/$/, "");
+  }
+
+  if (fromStorage) {
+    return fromStorage.replace(/\/$/, "");
+  }
+
+  return "";
+})();
 
 // Fallback list when API is temporarily unavailable.
 const LOCAL_TRAIT_PRESET = [];
@@ -555,9 +570,21 @@ async function fetchParticipants() {
   }
 
   const endpoint = `${API_BASE}/api/participants${params.toString() ? `?${params}` : ""}`;
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  renderResults(data.participants || []);
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      throw new Error("โหลดข้อมูลไม่สำเร็จ");
+    }
+
+    const data = await response.json();
+    renderResults(data.participants || []);
+  } catch (error) {
+    renderResults([]);
+
+    if (window.location.hostname.endsWith("github.io") && !API_BASE) {
+      setMessage("ยังไม่ได้เชื่อม API backend, เติม ?apiBase=https://your-api.onrender.com ที่ URL", true);
+    }
+  }
 }
 
 form.addEventListener("submit", async (event) => {
