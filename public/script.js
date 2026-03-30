@@ -136,6 +136,31 @@ function escapeHtml(text) {
     .replaceAll("'", "&#039;");
 }
 
+function toAbsoluteApiUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return "";
+  }
+
+  if (/^https?:\/\//i.test(raw)) {
+    return raw;
+  }
+
+  if (raw.startsWith("//")) {
+    return `${window.location.protocol}${raw}`;
+  }
+
+  if (!API_BASE) {
+    return raw;
+  }
+
+  if (raw.startsWith("/")) {
+    return `${API_BASE}${raw}`;
+  }
+
+  return `${API_BASE}/${raw}`;
+}
+
 function setMessage(text, isError = false) {
   formMessage.textContent = text;
   formMessage.style.color = isError ? "oklch(0.5 0.17 25)" : "oklch(0.42 0.08 145)";
@@ -307,7 +332,7 @@ function renderResults(participants) {
     name.textContent = person.name;
 
     if (person.imageUrl) {
-      avatar.src = person.imageUrl;
+      avatar.src = toAbsoluteApiUrl(person.imageUrl);
       avatar.style.display = "block";
       avatarPlaceholder.style.display = "none";
     } else {
