@@ -2,7 +2,7 @@ services:
   - type: web
     name: event1-api
     runtime: node
-    plan: free
+    plan: standard
     buildCommand: npm install
     startCommand: npm start
     envVars:
