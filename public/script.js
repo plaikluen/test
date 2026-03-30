@@ -143,6 +143,18 @@ function toAbsoluteApiUrl(value) {
   }
 
   if (/^https?:\/\//i.test(raw)) {
+    if (API_BASE) {
+      try {
+        const parsed = new URL(raw);
+        const isGithubUploads = /github\.io$/i.test(parsed.hostname) && parsed.pathname.startsWith("/uploads/");
+        if (isGithubUploads) {
+          return `${API_BASE}${parsed.pathname}${parsed.search}${parsed.hash}`;
+        }
+      } catch (error) {
+        // Ignore invalid absolute URLs and return raw below.
+      }
+    }
+
     return raw;
   }
 
