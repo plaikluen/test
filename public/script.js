@@ -407,8 +407,8 @@ function renderResults(participants) {
           <input type="file" name="image" accept="image/*" />
         </label>
         <label>
-          รหัสลบโพสต์ (ใช้ยืนยันตอนแก้ไข/ลบ)
-          <input type="password" name="deleteCode" maxlength="40" placeholder="ใส่รหัสลบโพสต์" required />
+          รหัสแก้ไขโพสต์ (ใช้ยืนยันตอนแก้ไข/ลบ)
+          <input type="password" name="deleteCode" maxlength="40" placeholder="ใส่รหัสแก้ไขโพสต์" required />
         </label>
         <label class="inline-checkbox">
           <input type="checkbox" name="removeImage" /> ลบรูปภาพปัจจุบัน
