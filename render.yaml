@@ -1,7 +1,7 @@
 services:
   - type: web
     name: event1-api
-    env: node
+    runtime: node
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -10,7 +10,7 @@ services:
         value: 20
       - key: DATA_ROOT
         value: /var/data
-    disks:
-      - name: event1-data
-        mountPath: /var/data
-        sizeGB: 1
+    disk:
+      name: event1-data
+      mountPath: /var/data
+      sizeGB: 1
