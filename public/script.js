@@ -582,7 +582,7 @@ async function fetchParticipants() {
     renderResults([]);
 
     if (window.location.hostname.endsWith("github.io") && !API_BASE) {
-      setMessage("ยังไม่ได้เชื่อม API backend, เติม ?apiBase=https://your-api.onrender.com ที่ URL", true);
+      setMessage("ไม่สามารถเชื่อมต่อ backend ได้ ลองกลับมาอีกครั้งหรือติดต่อผู้ดูแล", true);
     }
   }
 }
